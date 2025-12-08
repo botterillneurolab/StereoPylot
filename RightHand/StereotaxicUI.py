@@ -330,9 +330,11 @@ class MainWindow(QMainWindow):
         print('recalibration')
         #self.recalibrateall = threadedcontrols(window)
         #threadpool.start(self.recalibrateall.zerosteppers)
-        controlthread.zerosteppers(3, var_list.backoff, var_list.btnSteps)
-        controlthread.zerosteppers(1,var_list.backoff, var_list.btnSteps)
-        controlthread.zerosteppers(2, var_list.backoff, var_list.btnSteps)
+        print('UI got this')
+        controlthread.questionzerosteppers()                                                                      
+        #controlthread.zerosteppers(3, var_list.backoff, var_list.btnSteps)
+        #controlthread.zerosteppers(1,var_list.backoff, var_list.btnSteps)
+        #controlthread.zerosteppers(2, var_list.backoff, var_list.btnSteps)
 
 #INITIALIZE STEPPERS
     def initializesteppers(self):

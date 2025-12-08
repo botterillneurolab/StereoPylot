@@ -117,6 +117,11 @@ class threadedcontrols:
         # Destroy the root window
         root.destroy()
 
+    def questionzerosteppers(self):
+        print('UI sent this to control thread')
+        self.zerosteppers(3, var_list.backoff, var_list.btnSteps)
+        self.zerosteppers(1, var_list.backoff, var_list.btnSteps)
+        self.zerosteppers(2, var_list.backoff, var_list.btnSteps)
 
     def zerosteppers(self, axis, backoff, btwnsteps):
         print('zero steppers called')
