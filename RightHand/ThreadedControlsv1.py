@@ -76,7 +76,9 @@ class threadedcontrols:
             var_list.MLmove.steppgo(var_list.MLleft, var_list.stepper_speed, var_list.btnSteps)
             var_list.MLmove.PosRelAbsCalc()
         elif event == RotaryEncoder.BUTTONDOWN:
-            print("hardwired event button A clicked")
+            # print("hardwired event button A clicked")
+            print('safety disengaged')
+            var_list.safetybutton = 1
             return
         elif event == RotaryEncoder.BUTTONUP:
             return
@@ -93,6 +95,8 @@ class threadedcontrols:
             var_list.DVmove.PosRelAbsCalc()
         elif event == RotaryEncoder.BUTTONDOWN:
             print("hardwired event button B clicked")
+            print('safety disengaged')
+            var_list.safetybutton = 1
             return
         elif event == RotaryEncoder.BUTTONUP:
             return
@@ -100,12 +104,14 @@ class threadedcontrols:
 
     def get_user_input(self,giventitle,givenprompt):
         # Create the root window
+        print('called get_user_input')
         root = tk.Tk()
+        print('root1')
         root.withdraw()  # Hide the root window
-
+        print('withdraw1')
         # Prompt the user for input
         user_input = simpledialog.askstring(title=giventitle, prompt=givenprompt)
-
+        print('should see window')
         # Print the user input
         if user_input is not None:
             print(f"User input: {user_input}")
@@ -121,7 +127,7 @@ class threadedcontrols:
         print('UI sent this to control thread')
         self.zerosteppers(3, var_list.backoff, var_list.btnSteps)
         self.zerosteppers(1, var_list.backoff, var_list.btnSteps)
-        self.zerosteppers(2, var_list.backoff, var_list.btnSteps)                                   
+        self.zerosteppers(2, var_list.backoff, var_list.btnSteps)
 
     def zerosteppers(self, axis, backoff, btwnsteps):
         print('zero steppers called')
@@ -181,6 +187,9 @@ class threadedcontrols:
         print('disable steppers')
         GPIO.output(var_list.enableAll, 1)
         var_list.lastenablestate = 1
+        print('set back to drill')
+        self.sendtoUI.drilloffset()
+        var_list.TOGGLEoff = 1
 
 
     def importcalibrationfile(self, filenameis):
@@ -246,7 +255,7 @@ class threadedcontrols:
             if yesno == "y":
                 self.MLinput = self.get_user_input('INPUT:', 'Enter the ML starting position in millimeters.')
                 for x in range(calibrationsteps):
-                    if 0 <= var_list.MLsteps < 6000:
+                    if 0 <= var_list.MLsteps < 8000:
                         var_list.MLmove.steppgo(var_list.MLright, var_list.finespeed, btwnSteps)
                         var_list.MLmove.PosRelAbsCalc()
                 self.MLinputend = self.get_user_input('INPUT:', 'Enter the ML final position in millimeters.')
@@ -266,7 +275,7 @@ class threadedcontrols:
             if yesno == "y":
                 self.DVinput = self.get_user_input('INPUT:', 'Enter the DV starting position in millimeters.')
                 for x in range(calibrationsteps):
-                    if 0 <= var_list.DVsteps < 6000:
+                    if 0 <= var_list.DVsteps < 8000:
                         var_list.DVmove.steppgo(var_list.DVdown, var_list.finespeed, btwnSteps)
                         var_list.DVmove.PosRelAbsCalc()
                 self.DVinputend = self.get_user_input('INPUT:', 'Enter the DV final position in millimeters.')
@@ -413,9 +422,10 @@ class threadedcontrols:
         self.DVroto = RotaryEncoder(var_list.rotoA_DV, var_list.rotoB_DV, var_list.misc_eventbuttonB, self.DV_event)
 
 
-        print('Set Drill toggle')
+        print('Set Drill toggle and Mouse settings')
         time.sleep(1)
         self.sendtoUI.drilloffset()
+        self.sendtoUI.mouseselected()
         self.calibratethings()
 
 # concept and code created by Kirk Mulatz (original code https://github.com/bustenchops/Stereotaxiccontrol (experiment branch)
