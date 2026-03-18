@@ -13,7 +13,7 @@ class var_list:
 # OFFSETS FOR THE DRILL, Syringe, Needle (minus values is back, left or up)
 # in mm using the drill as 0
 
-# Change in the file offsetsXX.txt
+# Change in the file offsetsXX.txt (XX is LH or RH)
     DrillAPmm = float(0)
     DrillMLmm = float(0)
     DrillDVmm = float(0)
@@ -30,9 +30,9 @@ class var_list:
     TOGGLEoff = 1
 
 # DEFINE NUMBER OF BUTTONS AND ORDER IN ARRAY
-    buttonarray = ['moveslow', 'needleoffset', 'drilloffset', 'HomeToABSzero', 'movefast', 'recalibrate', 'bregmahome',
-                   'relativeAP', 'HomerelativeZero', 'relativeALLset', 'FiberOffset', 'relativeML', 'relativeDV' ,
-                   'miscbuttonA', 'miscbuttonB']
+    buttonarray = ['moveslow', 'needleoffset', 'drilloffset', 'HomeToABSzero', 'movefast',
+                   'recalibrate', 'bregmahome', 'relativeAP', 'HomerelativeZero', 'relativeALLset',
+                   'FiberOffset', 'relativeML', 'relativeDV' , 'miscbuttonA', 'miscbuttonB']
     lastbuttonstate = [0 for x in range(len(buttonarray))]
 
 # BUTTON POSITION IN SHIFT REGISTER ARRAY
@@ -110,14 +110,17 @@ class var_list:
     DVadvance = 400
     MLadvance = 400
 
-    APworking = 6400
+    APworking = 3600
     MLworking = 6070
-    DVworking = 3990
+    DVworking = 4400
 
-    DVup_bregramhome = 670 #about 0.5cm
+    fullretract = 7650
+    fullretractML = 9500
+
+    DVup_bregramhome = 268 #about 0.2cm
 
 # how many steps DV goes up and then back when changing the offsets to avoid scrapping the skull
-    DVup_OffsetSafety = 670 #about 0.5cm
+    DVup_OffsetSafety = 1340 #about 1cm
 
 
 #DEFINE STEPPER CONTROL PINS
@@ -145,6 +148,18 @@ class var_list:
     rotoA_DV = 20
     rotoB_DV = 21
 
+
+rotoA_AUX = 14
+rotoB_AUX = 15
+
+#ENCODER CALC VARIABLES
+    eventime = 0
+    eventdelay = 200
+    backwardrotdelay = 400
+    lastdirection = 0 #3 = counterclock, 1 = clock
+    thecount = 0
+    firstandonly = 0
+
 #DEFINE STEPPER DIRECTIONS
     APback = 1
     APforward = 0
@@ -159,4 +174,11 @@ class var_list:
     lastenablestate = 1
     emergencystopflag = 0
     engagebutton = 0
+    safetybutton = 0
+
+    ratormouseselect = 1  #1 is mouse 2 is rat (mouse default)
+    ratlambda = 1208   # steps for 9mm at 0.0745 per step
+    mouselambda = 550  # steps for 4.1mm at 0.0745 per step
+    rellambda = 0
+
 # concept and code created by Kirk Mulatz (original code https://github.com/bustenchops/Stereotaxiccontrol (experiment branch)
