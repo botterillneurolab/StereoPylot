@@ -1,0 +1,28 @@
+Movements: 
+
+ For most functions first disengage the safety and then press the desired button:
+
+
+StereoPylot 
+	Re-zero - performs a re-zero of the all 3 axis 
+	Goto pre-set working posit. – moves the axis to pre-defined position 
+	Full retract – moves all 3 axis away from working area 
+	Lambda – moves 4mm posterior for mouse OR 9mm posterior for rat – DV is moved up 2mm from relative zero 
+	Bregma – moves to relative zero position – DV is moved up 2mm from relative zero 
+	Species Select - adjusts the disctance the Lambda button moves AP axis
+		Disengage safety and press Species Select to switch between Mouse and Rat 
+	Switching Offsets 
+		For best results move back to relative zero (Bregma) before changing 
+		Disengage safety 
+		Select the offset 
+	Speed 
+		Use the toggle to select the speed, no other buttons required. 
+
+ 	Automated Movements - Move to X,Y, and Z via manual entry or from list:
+		Arm a coordinate from a loaded list
+		Check MakeItSo
+		Press engage
+	OR
+		Manually enter the coordinates
+		Check MakeItSo
+		Press engage
